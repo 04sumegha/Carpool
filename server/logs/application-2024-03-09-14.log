@@ -1,2 +1,0 @@
-{"level":"error","message":"Middleware - authenticate - token not present","service":"user-service"}
-{"level":"error","message":"Booking Controller - update - limit exceeded","service":"user-service"}

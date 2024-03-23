@@ -1,43 +1,19 @@
 import React from 'react';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import './App.css';
-import Navbar from './Navbar';
-import TextOverImage from './TextOverImage';
-import Features from './Features';
-import Benefits from './Benefits';
-import Footer from './Footer';
+import Home from './pages/Home/Home';
+import Auth from './pages/Auth/Auth';
 
 function App() {
-  const heading = (
-    <>
-      RIDE TOGETHER<br/>
-      SAVE TOGETHER
-    </>
-  )
-  
-  const headingStyle = {
-    fontSize: '70px',
-    fontWeight: 'bold',
-    marginTop: '-40px', 
-    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
-  };
-
-
-
-  const textColor = '#007dfe';
 
   return (
     <div className="App">
-      <Navbar />
-      <TextOverImage
-        src="/carr.jpg"
-        heading={heading}
-        headingStyle={headingStyle}
-        color={textColor} 
-        height="600px"
-      />
-      <Features/>
-      <Benefits/>
-      <Footer/>
+      <Router>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/auth' element={<Auth/>} />
+        </Routes>
+      </Router>
     </div>
   );
 }
