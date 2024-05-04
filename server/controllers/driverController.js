@@ -172,3 +172,24 @@ const cancel = async function (req, res) {
   return ReS(res, { message: "driver deleted" }, 201);
 };
 module.exports.cancel = cancel;
+
+const get = async function (req, res) {
+	let driver_id, err, driver;
+	if (!req.query._id) {
+		logger.error("driverSchema Controller - get : driver Id is empty");
+		return ReE(res, new Error('driver Id is empty'), 422);
+	}
+
+	driver_id = req.query._id;
+
+	[err,driver] = await to(findByPk(driver_id));
+	if (err) {
+		logger.error("Driver Controller - get : Driver not found", err);
+		return ReE(res, err, 422);
+	}
+
+	res.setHeader('Content-Type', 'application/json');
+
+	return ReS(res, { driver: driver.toObject() });
+}
+module.exports.get = get;

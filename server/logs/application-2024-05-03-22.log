@@ -1,0 +1,2 @@
+{"level":"error","message":"Invalid Token","service":"user-service"}
+{"level":"error","message":"Middleware - authenticate - token not present","service":"user-service"}

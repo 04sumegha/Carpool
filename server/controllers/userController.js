@@ -7,6 +7,7 @@ const register = async function(req, res){
     res.setHeader('Content-Type', 'application/json');
     let body = req.body;
     let err, user;
+	console.log(body);
     if (!body.firstname){
         logger.error("Auth Controller - register - firstname not entered");
         return ReE(res, new Error("Enter your first name"), 422);
@@ -47,7 +48,7 @@ module.exports.register = register;
 
 const login = async function(req, res){
     let email = req.body.email;
-  
+	console.log(email)
     if (!email){
         logger.error("Auth Controller - login - email not entered");
         return ReE(res, new Error("Enter the email"));
@@ -62,14 +63,19 @@ const login = async function(req, res){
         logger.error("Auth Controller - login - could not find the user");
         return ReS(res, {message: "No such user exists"},404);
     }
+	let id;
 
 	const token = jwt.sign(
 		{ userId: user._id },
 		process.env.JWT_SECRET,
 		{ expiresIn: '24h' }
 	);
-
-    return ReS(res, {message: "Successfully logged in", token});
+	console.log(token)
+	jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+        id = user.userId;
+        console.log(id);
+    });
+    return ReS(res, {message: "Successfully logged in", token, id});
 }
 module.exports.login = login;
 

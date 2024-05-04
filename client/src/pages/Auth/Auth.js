@@ -3,6 +3,7 @@ import * as Components from './Components';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from 'axios';
+// import jwt from 'jsonwebtoken'
 
 function Auth() {
     const [signIn, toggle] = React.useState(true);
@@ -23,8 +24,8 @@ function Auth() {
             firstname,
             lastname
         });
-
-        window.localStorage.setItem("userID", result.data._id);
+        window.localStorage.setItem("cookies", result.data.token);
+        window.localStorage.setItem("userId", result.data.id);
         navigate('/');
         
         } catch (error) {
@@ -39,8 +40,10 @@ function Auth() {
             email
         });
 
-        window.localStorage.setItem("userID", result.data._id);
+        window.localStorage.setItem("cookies", result.data.token);
+        window.localStorage.setItem("userId", result.data.id);
         navigate('/');
+        console.log(result);
         
         } catch (error) {
         console.log(error);

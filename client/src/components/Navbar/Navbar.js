@@ -1,31 +1,56 @@
-import React from 'react'
-import './Navbar.css'
-function Navbar(){
-    return(
-        <div>
-         <nav class="navbar navbar-expand-lg navbar-custom">
-  <div class="container">
-    <a class="navbar-brand" href="#">Carpool</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import "./Navbar.css";
+function Navbar() {
+  const [isCookie, setIsCookie] = useState(false);
+  useEffect(() => {
+    const token = window.localStorage.getItem("userId");
+    setIsCookie(!!token);
+  }, []);
+  const navigate = useNavigate();
+  const deleteCookie = () => {
+    const token = window.localStorage.setItem("userId", "");
+    setIsCookie(!!token);
+    navigate("/");
+  }
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Book a ride</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Ongoing Rides</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Driver</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+  return (
+    <div>
+      <nav className="navbar navbar-expand-lg navbar-custom">
+        <div className="container">
+          <a className="navbar-brand" href="#">
+            Carpool
+          </a>
+
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav ml-auto">
+              {isCookie && (
+                <ul className="navbar-nav ml-auto">
+                  <li className="nav-item">
+                    <a className="nav-link" href="#">
+                      <Link to="/book" className="nav-link book">Book a ride</Link>
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="#" onClick={deleteCookie}>
+                      Logout
+                    </a>
+                  </li>
+                </ul>
+              )}
+              {!isCookie && (
+                <li className="nav-item">
+                <a className="nav-link" href="#">
+                  <Link to="/auth" className="nav-link">Signup/Login</Link>
+                </a>
+              </li>
+              )}
+            </ul>
+          </div>
         </div>
-    )
+      </nav>
+    </div>
+  );
 }
-export default Navbar
+export default Navbar;

@@ -18,9 +18,10 @@ router.post('/driver/login', driverController.login);
 router.get('/driver/list',driverController.list);
 router.put('/driver/update',driverController.update);
 router.delete('/driver',driverController.cancel);
+router.get('/driver/get',driverController.get);
 
-router.post('/booking/create', authenticateToken, bookingController.create);
-router.put('/booking/update', authenticateToken, bookingController.update);
-router.get('/booking/list', authenticateToken, bookingController.list);
+router.post('/booking/create', bookingController.create);
+router.put('/booking/update', bookingController.update);
+router.get('/booking/list', bookingController.list);
 
 module.exports = router;

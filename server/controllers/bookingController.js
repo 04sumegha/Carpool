@@ -7,7 +7,8 @@ const { findByPk } = require('./driverController');
 const create = async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     const body = req.body;
-    const userId = req.user.userId;
+    // const userId = req.user.userId;
+    const userId = req.body.userId;
     console.log(userId);
     if(!body.driverId){
         logger.error("Booking Controller - create - driverId not present");
@@ -145,8 +146,9 @@ const list = async function (req, res) {
       logger.error("Booking Controller - list : booking count could not be fetched", err);
       return ReE(res, err, 422);
     }
+    // console.log(bookingList)
   
     res.setHeader("Content-Type", "application/json");
-    return ReS(res, { booking: JSON.stringify(bookingList), count: bookingCount });
+    return ReS(res, { booking: bookingList, count: bookingCount });
 };
 module.exports.list = list;
