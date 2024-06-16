@@ -20,15 +20,15 @@ function Auth() {
         event.preventDefault();
 
         try {
-        window.localStorage.setItem("cookies", result.data.token);
-        window.localStorage.setItem("userId", result.data.id);
-        navigate('/');
+            navigate('/');
             const result = await axios.post("http://localhost:5000/user/register", {
                 email,
                 mobilenumber,
                 firstname,
                 lastname
             });
+            window.localStorage.setItem("cookies", result.data.token);
+            window.localStorage.setItem("userId", result.data.id);
 
             window.localStorage.setItem("userID", result.data._id);
             navigate('/');
@@ -49,13 +49,13 @@ function Auth() {
     const handleLoginSubmit = async (event) => {
         event.preventDefault();
         try {
-        window.localStorage.setItem("cookies", result.data.token);
-        window.localStorage.setItem("userId", result.data.id);
-        navigate('/');
-        console.log(result);
+            navigate('/');
+            // console.log(result);
             const result = await axios.post("http://localhost:5000/user/login", {
                 email
             });
+            window.localStorage.setItem("cookies", result.data.token);
+            window.localStorage.setItem("userId", result.data.id);
 
             window.localStorage.setItem("userID", result.data._id);
             navigate('/');
